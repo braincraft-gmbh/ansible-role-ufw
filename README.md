@@ -20,8 +20,8 @@ ufw_policy:  		       #Set default policy to deny/allow
 
 ufw_forwarding: []             #IPv4 forwarding rules
   - comment:                   #Comment                  ; Not yet used.
-    incomming_dev:             #Incomming interface
-    incomming_network:         #Incomming network/subnet
+    incoming_dev:             #Incomming interface
+    incoming_network:         #Incomming network/subnet
     outgoing_dev:              #Outgoing interface
     outgoing_network:          #Outgoing network/subnet
     masquerading:              #Enable masquerading (boolean)
@@ -34,23 +34,23 @@ ufw_forwarding: []             #IPv4 forwarding rules
       - comment:               #Comment                  ; Not yet used.
         protocols: []          #Protocol. TCP/UDP as array
         allowed_sources: []    #Allowed IPs   (TODO)
-        incomming_ip:          #Orignal destiantion ip
-        incomming_port:        #Orignal destiantion port
+        incoming_ip:          #Orignal destiantion ip
+        incoming_port:        #Orignal destiantion port
         destination_ip:        #Outgoing IP addresss
         destination_port:      #Outgoing Port addresss
 
 ufw.forwarding6: []            #IPv4 forwarding rules
   - comment:                   #Comment                  ; Not yet used.
-    incomming_dev:             #Incomming interface
-    incomming_network:         #Incomming network/subnet
+    incoming_dev:             #Incomming interface
+    incoming_network:         #Incomming network/subnet
     outgoing_dev:              #Outgoing interface
     outgoing_network:          #Outgoing network/subnet
     conntrack_state:           #Incomming traffic ctstat setting
     masquerading:              #Enable masquerading (boolean)
     forwards: []               #Port forwarding
       - comment:               #Comment                  ; Not yet used.
-        incomming_ip:          #Orignal destiantion ip   ; Only used when masquerading is enabled
-        incomming_port:        #Orignal destiantion port ; Only used when masquerading is enabled
+        incoming_ip:          #Orignal destiantion ip   ; Only used when masquerading is enabled
+        incoming_port:        #Orignal destiantion port ; Only used when masquerading is enabled
         protocols: []          #Protocol
         destination_ip:        #Outgoing IP addresss     
         destination_port:      #Outgoing Port addresss   
@@ -83,7 +83,7 @@ Simple example with custom ufw rules
     - name: Allow HTTPS 
       ufw: rule=allow port=https proto=tcp 
     - name: Allow port 8443 from 1 host 
-      ufw: rule=allow interface="{{ item.incomming_dev }}" direction=in proto=tcp src="2001:db8:1337:beef:cafe::1" to_port=8443
+      ufw: rule=allow interface="{{ item.incoming_dev }}" direction=in proto=tcp src="2001:db8:1337:beef:cafe::1" to_port=8443
       with_items:
         - "{{ ufw.forwarding6 }}"
     
